@@ -1,0 +1,9 @@
+{
+  "name": "luby-cypress-youtube-cypress",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^8.3.0"
+  }
+}
