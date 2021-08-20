@@ -41,3 +41,12 @@ Cypress.Commands.add('createOng', () => {
     Cypress.env('createOngId', response.body.id);
   });
 });
+
+Cypress.Commands.add('login', () => {
+  cy.visit('https://3000-indigo-kite-s2x3i5vs.ws-us16.gitpod.io/profile', {
+    onBeforeLoad(win) {
+      win.localStorage.setItem('ongId', Cypress.env('createOngId'));
+      win.localStorage.setItem('ongName', 'Dogs queridos');
+    }
+  });
+});
