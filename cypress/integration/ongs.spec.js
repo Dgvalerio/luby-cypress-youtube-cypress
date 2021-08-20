@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 describe('Ongs', () => {
-  it.skip('Devem poder realizar um cadastro', () => {
+  it('Devem poder realizar um cadastro', () => {
     // .visit() -> Visita um site
     cy.visit('https://3000-indigo-kite-s2x3i5vs.ws-us16.gitpod.io/register');
 
@@ -28,7 +28,7 @@ describe('Ongs', () => {
     });
   });
 
-  it.skip('Devem poder realizar um login no sistema', () => {
+  it('Devem poder realizar um login no sistema', () => {
     // .visit() -> Visita um site
     cy.visit('https://3000-indigo-kite-s2x3i5vs.ws-us16.gitpod.io');
 
@@ -36,7 +36,7 @@ describe('Ongs', () => {
     cy.get('.button').click();
   });
 
-  it.skip('Devem poder fazer logout do sistema', () => {
+  it('Devem poder fazer logout do sistema', () => {
     // Login
     cy.login();
 
@@ -66,6 +66,18 @@ describe('Ongs', () => {
     });
   });
 
-  it.skip('Devem poder excluir um caso', () => {
+  it('Devem poder excluir um caso', () => {
+    cy.createIncident();
+    cy.login();
+
+    // POST 200 /incidents
+    cy.route('DELETE', '**/incidents/*').as('deleteIncident');
+
+    cy.get('li > button > svg').click();
+
+    cy.wait('@deleteIncident').then((xhr) => {
+      expect(xhr.status).be.eq(204);
+      expect(xhr.response.body).to.be.empty
+    });
   });
 });

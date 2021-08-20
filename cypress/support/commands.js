@@ -36,9 +36,23 @@ Cypress.Commands.add('createOng', () => {
     },
   }).then((response) => {
     expect(response.body.id).is.not.null;
-    cy.log(response.body.id);
-
     Cypress.env('createOngId', response.body.id);
+  });
+});
+
+Cypress.Commands.add('createIncident', () => {
+  cy.request({
+    method: 'POST',
+    url: 'https://3333-indigo-kite-s2x3i5vs.ws-us16.gitpod.io/incidents',
+    headers: { 'Authorization': Cypress.env('createOngId') },
+    body: {
+      'title': 'Animal faminto',
+      'description': 'Animal precisa de apoio para ter um alimento.',
+      'value': 500,
+    },
+  }).then((response) => {
+    expect(response.body.id).is.not.null;
+    Cypress.env('createIncidentId', response.body.id);
   });
 });
 
